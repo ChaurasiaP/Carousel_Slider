@@ -9,16 +9,17 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
-  int _currentPage = 0;
+ final int _currentPage = 0;
+  //List<ProductListModel> getProducts = [];
 
   @override
-  void initState() {
-    // TODO: implement initState
+  void initState() async {
     super.initState();
     _pageController =
         PageController(initialPage: _currentPage, viewportFraction: 0.8);
@@ -26,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _pageController.dispose();
   }
@@ -40,18 +40,17 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.all(40.0),
-              child: Center(
-                child: Text("Find Your Style",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                        fontSize: 30)),
-              ),
+              child: Text("Select Your Choice!",
+              textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      fontSize: 30)),
             ),
             AspectRatio(
               aspectRatio: 0.85,
               child: PageView.builder(
-                  itemCount: dataList.length,
+                  itemCount: 15,
                   physics: const ClampingScrollPhysics(),
                   controller: _pageController,
                   itemBuilder: (context, index) {
@@ -72,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (_pageController.position.haveDimensions) {
           value = index.toDouble() - (_pageController.page ?? 0);
           value = (value * 0.038).clamp(-1, 1);
-          print("value $value index $index");
+          //print("value $value index $index");
         }
         return Transform.rotate(
           angle: pi * value,

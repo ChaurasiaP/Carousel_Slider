@@ -1,4 +1,4 @@
-import 'package:carousel_builder/UI/home.dart';
+import 'package:carousel_builder/UI/landing_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      home: const LandingPage(),
     );
   }
 }

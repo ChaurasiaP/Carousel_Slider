@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {
   final DataModel data;
-  const DetailsScreen({Key? key, required this.data}) : super(key: key);
+  const DetailsScreen({super.key, required this.data});
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState();
+  // ignore: library_private_types_in_public_api
+  _DetailsScreenState createState() {
+    return _DetailsScreenState();
+  }
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
