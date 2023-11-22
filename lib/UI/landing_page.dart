@@ -111,7 +111,9 @@
 import 'package:carousel_builder/STYLE/MyTheme.dart';
 import 'package:carousel_builder/UI/popular_products.dart';
 import 'package:carousel_builder/UI/search_bar_widget.dart';
+import 'package:carousel_builder/provider/products_details_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -122,40 +124,45 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
 
-  bool isTapped = true;
+  bool isTapped = false;
 
   @override
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      backgroundColor: MyTheme.appWhite,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Shop Your Style",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: "BegumSans"
+    return Consumer(
+      builder: (context, value, child) { 
+        return Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: MyTheme.appWhite,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Shop Your Style",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "BegumSans"
+                  ),
                 ),
-              ),
-               const SizedBox(height: 20),
-               const SearchBarWidget(),
-               const SizedBox(height: 20),
-               buildSlidableList(),
-               const PopularProductsWidget()
-            ],
+                 const SizedBox(height: 20),
+                 const SearchBarWidget(),
+                 const SizedBox(height: 20),
+                 buildSlidableList(),
+                 const PopularProductsWidget()
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+       });
   }
   Widget buildSlidableList(){
+    var productProvider = Provider.of<ProductDetailsProvider>(context, listen: true);
     return Container(
       height: 70,
       decoration: BoxDecoration(
@@ -168,13 +175,16 @@ class _LandingPageState extends State<LandingPage> {
         itemCount: 5,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: (){},
+            onTap: (){
+              productProvider.changeItemCategoryTabStatus();
+              debugPrint("$productProvider.itemCategoryTabTapped");
+            },
             borderRadius: BorderRadius.circular(10),
             child: Container(
               margin: const EdgeInsets.fromLTRB(8, 1.5, 8, 0),
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               decoration: BoxDecoration(
-                color: MyTheme.lightBlue,
+                color: productProvider.itemCategoryTabTapped ? MyTheme.lightBlue : Colors.transparent,
 //  /               border: Border.all(color: MyTheme.appWhite),
                 borderRadius: BorderRadius.circular(10)
               ),
@@ -185,8 +195,8 @@ class _LandingPageState extends State<LandingPage> {
                           : index == 4 ? "Street Wear"
                           : "",
                           style: TextStyle(
-                                fontSize: 20,
-                                color: isTapped ? MyTheme.textBlue1 : MyTheme.appBlack,
+                                fontSize: 16,
+                                color: productProvider.itemCategoryTabTapped ? MyTheme.textBlue1 : MyTheme.appBlack,
                                 fontWeight: isTapped ? FontWeight.w500
                                             : FontWeight.normal
                           ),)
