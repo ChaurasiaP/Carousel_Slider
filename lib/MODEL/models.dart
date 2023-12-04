@@ -3,12 +3,13 @@ class DataModel {
   final String imageName;
   final double price;
   final String rating;
+  // bool isLiked = false;
   DataModel(
     this.title,
     this.imageName,
     this.price,
     this.rating,
-
+    // this.isLiked,
   );
 }
 

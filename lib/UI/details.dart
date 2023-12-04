@@ -1,10 +1,17 @@
-import 'package:carousel_builder/MODEL/models.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {
-  final DataModel data;
-  const DetailsScreen({super.key, required this.data});
+  const DetailsScreen(
+      {required this.productName,
+      required this.imageUrl,
+      required this.rating,
+      required this.price,
+      super.key});
 
+  final String productName;
+  final String imageUrl;
+  final num rating;
+  final num price;
   @override
   // ignore: library_private_types_in_public_api
   _DetailsScreenState createState() {
@@ -21,31 +28,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
         iconTheme: const IconThemeData(color: Colors.black54),
         elevation: 0,
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(
-              widget.data.title,
-              style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Text(
+                widget.productName,
+                style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Expanded(
-              flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Hero(
-                  tag: widget.data.imageName,
+            Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
                         image: DecorationImage(
                             image: AssetImage(
-                              widget.data.imageName,
+                              widget.imageUrl,
                             ),
                             fit: BoxFit.fill),
                         boxShadow: const [
@@ -55,22 +62,35 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               color: Colors.black26)
                         ]),
                   ),
+                )),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  "Price \$${widget.price}",
+                  style: const TextStyle(
+                      color: Colors.black54,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
-              )),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Text(
-                "Price \$${widget.data.price}",
-                style: const TextStyle(
-                    color: Colors.black54,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  "Rating: ${widget.rating}",
+                  style: const TextStyle(
+                      color: Colors.black54,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
