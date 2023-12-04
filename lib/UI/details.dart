@@ -31,6 +31,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
@@ -43,7 +44,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
             ),
             Expanded(
-                flex: 3,
+                flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
@@ -64,29 +65,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                 )),
             Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  "Price \$${widget.price}",
-                  style: const TextStyle(
-                      color: Colors.black54,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  "Rating: ${widget.rating}",
-                  style: const TextStyle(
-                      color: Colors.black54,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Price \$${widget.price}",
+                    style: const TextStyle(
+                        color: Colors.black54,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Rating: ${widget.rating}",
+                    style: const TextStyle(
+                        color: Colors.black54,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
           ],
